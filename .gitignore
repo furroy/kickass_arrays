@@ -1,0 +1,10 @@
+*.exe
+*.jar
+*.prg
+*.sym
+*.vs
+*.pdf
+*.d64
+*.dbg
+bin
+breakpoints.txt
