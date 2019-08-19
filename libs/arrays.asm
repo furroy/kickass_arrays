@@ -59,6 +59,10 @@
 #if MEMORY_GUARD
 		.label post = *
 		.byte $bb
+		GuardArray(pre, post)
+		// i thought maybe if i set the address back the root label would have the correct value
+		// but instead triggers memory overrite error
+		// * = actual
 #endif
 }
 

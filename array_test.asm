@@ -3,8 +3,11 @@
 
 
 * = $c000
-TestArray: AllocateArray(1000, 32)
-GuardArray(TestArray.pre, TestArray.post)
+TestArray: AllocateArray(100, 32)
+// GuardArray(TestArray.pre, TestArray.post)
+
+TestArray2: AllocateArray(100, 32)
+// GuardArray(TestArray2.pre, TestArray2.post)
 
 
 BasicUpstart2(Entry)
