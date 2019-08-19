@@ -1,6 +1,6 @@
 java -jar ./KickAss.jar || goto :error
 cd bin
-..\C64Debugger -vicesymbols array_test.vs -prg array_test.prg
+..\C64Debugger -vicesymbols array_test.vs -breakpoints breakpoints.txt -prg array_test.prg
 cd ..
 @exit
 

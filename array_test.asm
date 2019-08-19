@@ -1,9 +1,18 @@
 
 #import "libs/arrays.asm"
 
+
+* = $c000
+TestArray: AllocateArray(1000, 32)
+GuardArray(TestArray.pre, TestArray.post)
+
+
 BasicUpstart2(Entry)
 
 Entry:
+	// "accidentally" over write pre buffer data. debugger should freeze.
+	lda #0
+	sta TestArray.pre
 	ldx #8
 	ldy #2
 	ArrayIndexYX($02, ScreenRamLSB, ScreenRamMSB)
@@ -28,6 +37,9 @@ Entry:
 	ArrayCopyRow($02, ScreenRamLSB, ScreenRamMSB, $04, 40)
 	ldx #12
 	ArrayCopyIntoRow($02, ScreenRamLSB, ScreenRamMSB, TestRowData, 40)
+	// self mod should break when GuardRange() is active!
+	lda #4
+	sta BREAK + 1
 BREAK:
 	ldx #4
 	ArrayCopyIntoRow($02, ScreenRamLSB, ScreenRamMSB, TestRowData, 40)
@@ -36,6 +48,9 @@ BREAK:
 		lda #$46
 		sta ($02), y
 		jmp !-
+__Entry:
+
+GuardRange(Entry, __Entry)
 
 * = $3000
 ScreenRamLSB: MakeArrayLookupsLSB($0400, 40, 25)

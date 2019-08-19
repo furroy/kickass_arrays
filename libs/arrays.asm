@@ -23,10 +23,43 @@
 ** !:
 */
 
+// comment this out to disable the auto-generated breakpoints
+#define MEMORY_GUARD
+
+#if MEMORY_GUARD
+.var @brkFile = createFile("breakpoints.txt")
+#endif
+
+.macro GuardArray(prelabel, postlabel)
+{
+#if MEMORY_GUARD
+	.eval @brkFile.writeln("breakmem " + toHexString(prelabel) + "<=FF")
+	.eval @brkFile.writeln("breakmem " + toHexString(postlabel) + "<=FF")
+#endif
+}
+
+.macro GuardRange(start, end)
+{
+#if MEMORY_GUARD
+	.for(var i = start; i <= end; i++) {
+		.eval @brkFile.writeln("breakmem " + toHexString(i) + "<=FF")
+	}
+#endif
+}
+
 // Define and fill an array with default values. You must define a label before calling this macro!
 // Example  ScreenBuffer: AllocateArray(40 * 25, $00)
 .macro AllocateArray(length, defaultValue) {
+#if MEMORY_GUARD
+		.label pre = *
+		.byte $bb
+#endif
+		.label actual = *
 		.fill length, defaultValue
+#if MEMORY_GUARD
+		.label post = *
+		.byte $bb
+#endif
 }
 
 // Generate LSB lookup table for an array. You must define a label before calling this macro!
