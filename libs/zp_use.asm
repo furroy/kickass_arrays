@@ -19,14 +19,14 @@
 #endif
 
 .macro ZPU(zp) {
-		.if (zp < $02 || zp > $ff) .error "ArrayIndexYX: First arg must be valid ZP"
+		.if (zp < $02 || zp > $ff) .error "ZPU: First arg must be valid ZP"
 #if ZP_TRACKER
 		inc [ZP_TRACKING_BUFFER + zp]
 #endif
 }
 
 .macro ZPX(zp) {
-		.if (zp < $02 || zp > $ff) .error "ArrayIndexYX: First arg must be valid ZP"
+		.if (zp < $02 || zp > $ff) .error "ZPX: First arg must be valid ZP"
 #if ZP_TRACKER
 		inc [ZP_TRACKING_BUFFER + zp]
 #endif
