@@ -6,13 +6,14 @@
 **
 ** Just need to set where to place the 256 byte tracking buffer before importing
 ** .label ZP_BUFFER_LOCATION = 2000
+** // enable tracking, otherwise it won't do anything 
+** #define ZP_TRACKER
 ** #import "libs/zp_use.asm"
 **
 ** Ofc if you forget to call ZPX() it will mess up.
 */
 
 
-#define ZP_TRACKER
 
 #if ZP_TRACKER
 	.var @brkFile = createFile("breakpoints.txt")

@@ -1,6 +1,7 @@
 
 
 .label ZP_BUFFER_LOCATION = $2000
+#define ZP_TRACKER
 
 #import "libs/zp_use.asm"
 
